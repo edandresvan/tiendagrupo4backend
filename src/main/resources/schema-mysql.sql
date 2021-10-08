@@ -1,10 +1,10 @@
 
---create database if not exists tienda;
---use tienda;
+--create database if not exists tiendavirtualgrupo4;
+--use tiendavirtualgrupo4;
 
 
 create table if not exists usuarios (
-  cedula_usuario bigint(20) unsigned not null,
+  cedula_usuario bigint unsigned not null,
   usuario varchar(255) not null unique,
   nombre_usuario varchar(255) not null,
   email_usuario varchar(255) not null,
@@ -16,7 +16,7 @@ create table if not exists usuarios (
 );
 
 create table if not exists clientes (
-  cedula_cliente bigint(20) unsigned not null,
+  cedula_cliente bigint unsigned not null,
   nombre_cliente varchar(255) not null,
   direccion_cliente varchar(255) not null,
   email_cliente varchar(255) not null,
@@ -26,7 +26,7 @@ create table if not exists clientes (
 );
 
 create table if not exists proveedores (
-  nit_proveedor bigint(20) unsigned not null ,
+  nit_proveedor bigint unsigned not null ,
   nombre_proveedor varchar(255) not null unique,
   direccion_proveedor varchar(255) not null,
   ciudad_proveedor varchar(255) not null,
@@ -36,12 +36,12 @@ create table if not exists proveedores (
 );
 
 create table if not exists productos (
-  codigo_producto bigint(20) unsigned not null,
+  codigo_producto bigint unsigned not null,
   nombre_producto varchar(255) not null unique,
   precio_compra double not null,
   precio_venta double not null,
   iva_compra double not null,
-  nit_proveedor bigint(20)unsigned not null,
+  nit_proveedor bigint unsigned not null,
   -- 
   constraint pk_producto primary key (codigo_producto),
   constraint fk_producto_nit_proveedor 
@@ -49,9 +49,9 @@ create table if not exists productos (
 );
 
 create table if not exists ventas (
-  codigo_venta bigint(20) unsigned not null auto_increment,
-  cedula_cliente bigint(20) unsigned not null,
-  cedula_usuario bigint(20) unsigned not null,  
+  codigo_venta bigint unsigned not null auto_increment,
+  cedula_cliente bigint unsigned not null,
+  cedula_usuario bigint unsigned not null,  
   total_venta double not null,
   iva_venta double not null,
   valor_venta double not null,
@@ -64,10 +64,10 @@ create table if not exists ventas (
 );
 
 create table if not exists detalle_ventas (
-  codigo_detalle_venta bigint(20) unsigned not null,
-  codigo_venta bigint(20) unsigned not null,
-  codigo_producto bigint(20) unsigned not null,
-  cantidad_producto int(11) unsigned not null,
+  codigo_detalle_venta bigint unsigned not null,
+  codigo_venta bigint unsigned not null,
+  codigo_producto bigint unsigned not null,
+  cantidad_producto int unsigned not null,
   total_venta double not null,
   valor_iva double not null,
   valor_venta double not null,
