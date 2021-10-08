@@ -60,7 +60,7 @@ public class ProveedorControlador {
   }
 
   @PutMapping("/{nit}")
-  public ResponseEntity<List<Proveedor>> putProveedor(@PathVariable String nit, @RequestBody Proveedor proveedor) {
+  public ResponseEntity<List<Proveedor>> putProveedor(@PathVariable String nit, @Valid @RequestBody Proveedor proveedor) {
     List<Proveedor> resultados = this.proveedorServicio.getProveedoresPorNit(Long.parseLong(nit));
 
     if (resultados.isEmpty()) {
