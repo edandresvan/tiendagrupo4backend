@@ -2,10 +2,9 @@ package co.edu.unbosque.tiendavirtualcuatro.backend.api;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
-
-
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import co.edu.unbosque.tiendavirtualcuatro.backend.model.Proveedor;
@@ -35,13 +35,22 @@ public class ProveedorControlador {
   }
 
   @GetMapping
-  public ResponseEntity<List<Proveedor>> getProveedores() {
-    return ResponseEntity.ok(this.proveedorServicio.getProveedores());
+  public ResponseEntity<List<Proveedor>> getProveedores(@RequestParam Optional<String> nit) {
+    if (nit.isPresent()) {
+      List<Proveedor> resultados = this.proveedorServicio.getProveedoresPorNit(Long.parseLong(nit.get()));
+      if (resultados.isEmpty()) {
+        return new ResponseEntity<>(resultados, HttpStatus.NOT_FOUND);
+      } else {
+        return new ResponseEntity<>(resultados, HttpStatus.OK);
+      }
+    } else {
+      return ResponseEntity.ok(this.proveedorServicio.getProveedores());
+    }
   }
 
   @GetMapping("/{nit}")
-  public ResponseEntity<List<Proveedor>> getProveedoresPorNit(@PathVariable Long nit) {
-    List<Proveedor> resultados = this.proveedorServicio.getProveedoresPorNit(nit);
+  public ResponseEntity<List<Proveedor>> getProveedoresPorNit(@PathVariable String nit) {
+    List<Proveedor> resultados = this.proveedorServicio.getProveedoresPorNit(Long.parseLong(nit));
     if (resultados.isEmpty()) {
       return new ResponseEntity<>(resultados, HttpStatus.NOT_FOUND);
     } else {
@@ -60,7 +69,8 @@ public class ProveedorControlador {
   }
 
   @PutMapping("/{nit}")
-  public ResponseEntity<List<Proveedor>> putProveedor(@PathVariable String nit, @Valid @RequestBody Proveedor proveedor) {
+  public ResponseEntity<List<Proveedor>> putProveedor(@PathVariable String nit,
+      @Valid @RequestBody Proveedor proveedor) {
     List<Proveedor> resultados = this.proveedorServicio.getProveedoresPorNit(Long.parseLong(nit));
 
     if (resultados.isEmpty()) {

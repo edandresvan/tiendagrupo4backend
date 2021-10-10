@@ -106,7 +106,7 @@ public class ManejadorGlobalExcepcion extends ResponseEntityExceptionHandler {
   @ExceptionHandler({ Exception.class })
   public ResponseEntity<Object> handleAll(Exception ex, WebRequest request) {
     ErrorDetallado errorDetallado = new ErrorDetallado(HttpStatus.INTERNAL_SERVER_ERROR, ex.getLocalizedMessage(),
-        "ocurrió un error");
+        "ocurrió un error: "+ ex.getLocalizedMessage());
     return new ResponseEntity<>(errorDetallado, new HttpHeaders(), errorDetallado.getEstadoHttp());
   }
 }
