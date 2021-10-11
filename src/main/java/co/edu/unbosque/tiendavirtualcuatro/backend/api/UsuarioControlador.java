@@ -5,7 +5,6 @@ package co.edu.unbosque.tiendavirtualcuatro.backend.api;
 
 import java.util.ArrayList;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,7 +40,7 @@ public class UsuarioControlador {
 		UsuarioDAO objDAO=new UsuarioDAO(); 
 			return objDAO.listaDeUsuarios();
 }
-	@GetMapping("/consultar")
+	@GetMapping("/buscar")
 	@ResponseBody
 	public Usuario consultar(@RequestParam int cedulau) {
 	    if (cedulau <= 1) {
@@ -57,6 +56,5 @@ public class UsuarioControlador {
 	 {
 		UsuarioDAO dao=new UsuarioDAO(); 
 	    return dao.actualizarUsuarios(usuario);
-	 }	
-	
+	 }
 }

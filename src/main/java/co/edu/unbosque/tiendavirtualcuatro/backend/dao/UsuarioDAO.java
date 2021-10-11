@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-
 import co.edu.unbosque.tiendavirtualcuatro.backend.model.Usuario;
 
 /**
@@ -118,11 +117,22 @@ public class UsuarioDAO {
 	 {
 	  Conexion conex= new Conexion();
 	  try { 
-	   Statement estatuto = conex.getConnection().createStatement();
-	   estatuto.executeUpdate("Update usuarios VALUES ('"+usuario.getCedula());
-	   estatuto.executeUpdate(null);
-	   
-	   estatuto.close();
+	   //Statement estatuto = conex.getConnection().createStatement();
+	   String sql = "UPDATE `tiendavirtualgrupo4`.`usuarios` SET `usuario` = ?, `nombre_usuario` = ?, `email_usuario` = ?, `usuario_password` = ?, `rol` = ? WHERE (`cedula_usuario` = ?);\r\n"
+	   		+ "";		  
+	      PreparedStatement ps = conex.getConnection()
+                  .prepareStatement(sql);	
+	      ps.setString(6, String.valueOf(usuario.getCedula()));
+	      ps.setString(1, usuario.getUsuario());
+	      ps.setString(2, usuario.getNombre());
+	      ps.setString(3, usuario.getEmail());
+	      ps.setString(4, usuario.getPassword());
+	      ps.setString(5, usuario.getRol());	      
+	   //estatuto.executeUpdate("Update usuarios VALUES ('"+usuario.get);
+	   //estatuto.executeUpdate(null);
+	   //estatuto.close();
+	      ps.executeUpdate();
+	      ps.close(); 
 	   conex.desconectar();
 	   
 	  } catch (SQLException e) {
@@ -130,5 +140,5 @@ public class UsuarioDAO {
 	            System.out.println(e.getMessage());
 	  }
 	  return usuario;
-	 }	
+	 }
 }
