@@ -6,7 +6,9 @@ package co.edu.unbosque.tiendavirtualcuatro.backend.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
+
 
 import co.edu.unbosque.tiendavirtualcuatro.backend.model.Usuario;
 
@@ -111,4 +113,22 @@ public class UsuarioDAO {
 		}
 		return usuarioRet;
 	}
+	
+	public Usuario actualizarUsuarios(Usuario usuario) 
+	 {
+	  Conexion conex= new Conexion();
+	  try { 
+	   Statement estatuto = conex.getConnection().createStatement();
+	   estatuto.executeUpdate("Update usuarios VALUES ('"+usuario.getCedula());
+	   estatuto.executeUpdate(null);
+	   
+	   estatuto.close();
+	   conex.desconectar();
+	   
+	  } catch (SQLException e) {
+		  usuario = null;
+	            System.out.println(e.getMessage());
+	  }
+	  return usuario;
+	 }	
 }

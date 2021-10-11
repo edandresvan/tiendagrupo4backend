@@ -50,6 +50,13 @@ public class UsuarioControlador {
 	    }	        
 		UsuarioDAO dao =  new UsuarioDAO();	    
 	  	return dao.consultarUsuario(cedulau);      
-	}	
+	}
+	
+	@PostMapping("/actualizarUsuarios")
+	public Usuario actualizarUsuarios(@RequestBody Usuario usuario) 
+	 {
+		UsuarioDAO dao=new UsuarioDAO(); 
+	    return dao.actualizarUsuarios(usuario);
+	 }	
 	
 }
