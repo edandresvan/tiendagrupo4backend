@@ -4,11 +4,14 @@
 package co.edu.unbosque.tiendavirtualcuatro.backend.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
 
 import co.edu.unbosque.tiendavirtualcuatro.backend.model.Usuario;
 
@@ -48,4 +51,36 @@ public class UsuarioDAO {
     }
     return persona;
   }
+  /**
+	 * Consultar la lista de Usuarios
+	 * @return
+	 */
+	public ArrayList<Usuario> listaDeUsuarios() {
+	  ArrayList<Usuario> misUsuarios = new ArrayList<Usuario>();
+	  Conexion conex= new Conexion();
+	    
+	  try {
+	   PreparedStatement consulta = conex.getConnection().prepareStatement("SELECT * FROM usuarios");
+	   ResultSet res = consulta.executeQuery();
+	   while(res.next()){
+	    
+	    int cedula_usuario = Integer.parseInt(res.getString("cedula_usuario"));
+	    String usuario= res.getString("usuario");
+	    String nombre_usuario = res.getString("nombre_usuario");
+	    String email_usuario = res.getString("email_usuario");
+	    String usuario_password = res.getString("usuario_password");
+	    String rol= res.getString("rol");
+	    Usuario persona= new Usuario(cedula_usuario, usuario, nombre_usuario, email_usuario, usuario_password, rol);
+	    misUsuarios.add(persona);
+	          }
+	          res.close();
+	          consulta.close();
+	          conex.desconectar();
+	   
+	  } catch (Exception e) {
+	   //JOptionPane.showMessageDialog(null, "no se pudo consultar la Persona\n"+e);
+		  System.out.println("No se pudo consultar la persona\n"+e);	
+	  }
+	  return misUsuarios; 
+	 }
 }

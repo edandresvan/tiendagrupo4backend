@@ -29,7 +29,7 @@ public class Usuario {
   /**
    * Constrasena del usuario.
    */
-  private String password;
+  private String usuario_password;
   
   /**
    * Rol del usuario.
@@ -52,13 +52,13 @@ public class Usuario {
    * @param rol
    */
   public Usuario(long cedula, String usuario, String nombre, String email,
-      String password, String rol) {
+      String usuario_password, String rol) {
     super();
     this.cedula = cedula;
     this.usuario = usuario;
     this.nombre = nombre;
     this.email = email;
-    this.password = password;
+    this.usuario_password = usuario_password;
     this.rol = rol;
   }
 
@@ -122,14 +122,14 @@ public class Usuario {
    * @return the password
    */
   public String getPassword() {
-    return this.password;
+    return this.usuario_password;
   }
 
   /**
    * @param password the password to set
    */
-  public void setPassword(String password) {
-    this.password = password;
+  public void setPassword(String usuario_password) {
+    this.usuario_password = usuario_password;
   }
 
   /**
@@ -149,7 +149,7 @@ public class Usuario {
   @Override
   public String toString() {
     return "Usuarios [cedula_usuario=" + cedula + ", email_usuario=" + email + ", nombre_usuario="
-        + nombre + ", password=" + password + ", usuario=" + usuario +", rol=" + rol + "]";
+        + nombre + ", password=" + usuario_password + ", usuario=" + usuario +", rol=" + rol + "]";
   }
   
 }

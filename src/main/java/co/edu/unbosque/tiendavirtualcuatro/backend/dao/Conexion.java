@@ -27,7 +27,7 @@ public class Conexion {
   /**
    * Contraseña de usuario para iniciar la conexión con la base datos.
    */
-  static String password = "root";
+  static String password = "rootroot";
 
   /**
    * Dirección URL para conectarse la base de datos.
