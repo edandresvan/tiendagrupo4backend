@@ -5,9 +5,26 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 
-public class ErrorDetallado {
-
+public class ErrorDetallado <T> {
+  
+  private T modelo;  
+  private String mensaje;
+  private List<String> errores;
   private HttpStatus estadoHttp;
+  
+  /**
+   * @return the modelo
+   */
+  public T getModelo() {
+    return this.modelo;
+  }
+
+  /**
+   * @param modelo the modelo to set
+   */
+  public void setModelo(T modelo) {
+    this.modelo = modelo;
+  }
 
   /**
    * @return the estadoHttp
@@ -51,14 +68,21 @@ public class ErrorDetallado {
     this.errores = errores;
   }
 
-  private String mensaje;
-  private List<String> errores;
+  public ErrorDetallado(HttpStatus estadoHttp, String mensaje, List<String> errores,
+      T modelo) {
+    super();
+    this.estadoHttp = estadoHttp;
+    this.mensaje = mensaje;
+    this.errores = errores;
+    this.modelo = modelo;
+  }
 
   public ErrorDetallado(HttpStatus estadoHttp, String mensaje, List<String> errores) {
     super();
     this.estadoHttp = estadoHttp;
     this.mensaje = mensaje;
     this.errores = errores;
+    this.modelo = null;
   }
 
   public ErrorDetallado(HttpStatus status, String message, String error) {
@@ -66,5 +90,6 @@ public class ErrorDetallado {
     this.estadoHttp = status;
     this.mensaje = message;
     errores = Arrays.asList(error);
+    this.modelo = null;
   }
 }

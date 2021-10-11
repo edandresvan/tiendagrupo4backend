@@ -40,8 +40,11 @@ public class ManejadorGlobalExcepcion extends ResponseEntityExceptionHandler {
     for (ObjectError error : ex.getBindingResult().getGlobalErrors()) {
       errores.add(error.getObjectName() + ": " + error.getDefaultMessage());
     }
-
-    ErrorDetallado errorDetallado = new ErrorDetallado(HttpStatus.BAD_REQUEST, ex.getLocalizedMessage(), errores);
+   
+    
+    ErrorDetallado errorDetallado = new ErrorDetallado(HttpStatus.BAD_REQUEST, 
+      ex.getLocalizedMessage(), errores, ex.getBindingResult().getTarget());
+    //errorDetallado.setModelo(ex.getBindingResult().getTarget());
     return handleExceptionInternal(ex, errorDetallado, headers, errorDetallado.getEstadoHttp(), request);
   }
 
