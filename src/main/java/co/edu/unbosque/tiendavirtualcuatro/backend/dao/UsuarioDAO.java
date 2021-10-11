@@ -6,12 +6,7 @@ package co.edu.unbosque.tiendavirtualcuatro.backend.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
-
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
 
 import co.edu.unbosque.tiendavirtualcuatro.backend.model.Usuario;
 
@@ -42,7 +37,7 @@ public class UsuarioDAO {
 
       ps.executeUpdate();
 
-      ps.close();
+      ps.close(); 
       conex.desconectar();
 
     } catch (SQLException e) {
@@ -83,4 +78,37 @@ public class UsuarioDAO {
 	  }
 	  return misUsuarios; 
 	 }
+	
+	public Usuario consultarUsuario(int cedulausr) {
+		Conexion conn =  new Conexion();
+		Usuario usuarioEnc = null;
+		PreparedStatement ps = null;
+		Usuario usuarioRet = null;
+		
+		String sql = "SELECT * FROM tiendavirtualgrupo4.usuarios uc WHERE uc.cedula_usuario = ?";
+		
+		try {
+			ps =  conn.getConnection().prepareStatement(sql);
+			ps.setInt(1, cedulausr);
+			ResultSet rs =  ps.executeQuery();
+			while(rs.next()) {
+				Integer cedula_usuario = rs.getInt(1);
+				String email_usuario =  rs.getString(2);
+				String nombre_usuario =  rs.getString(3);
+				String password =  rs.getString(4);
+				String usuario = rs.getString(5);
+				String rol = rs.getString(6);
+				usuarioEnc =  new Usuario(cedula_usuario, email_usuario, nombre_usuario, password, usuario, rol);
+			}
+			
+			if(usuarioEnc.getCedula() == cedulausr) {
+				usuarioRet = usuarioEnc;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return usuarioRet;
+	}
 }
