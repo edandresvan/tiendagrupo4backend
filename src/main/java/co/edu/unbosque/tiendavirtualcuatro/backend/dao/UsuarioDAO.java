@@ -141,4 +141,27 @@ public class UsuarioDAO {
 	  }
 	  return usuario;
 	 }
+	public Usuario borrarUsuario(int cedulausr) {
+		Conexion conn =  new Conexion();
+		Usuario usuarioEnc = null;
+		PreparedStatement ps = null;
+		Usuario usuarioRet = null;
+		
+		String sql = "DELETE FROM tiendavirtualgrupo4.usuarios uc WHERE uc.cedula_usuario = ?";
+		
+		try {
+			ps =  conn.getConnection().prepareStatement(sql);
+			ps.setInt(1, cedulausr);
+			int rs = ps.executeUpdate();
+			
+			if(usuarioEnc.getCedula() == cedulausr) {
+				usuarioRet = usuarioEnc;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return usuarioRet;
+	}
 }

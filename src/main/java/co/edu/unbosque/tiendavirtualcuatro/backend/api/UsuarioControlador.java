@@ -57,4 +57,15 @@ public class UsuarioControlador {
 		UsuarioDAO dao=new UsuarioDAO(); 
 	    return dao.actualizarUsuarios(usuario);
 	 }
+	
+	@PostMapping("/Borrar")
+	@ResponseBody
+	public Usuario borrar(@RequestParam int cedulau) {
+	    if (cedulau <= 1) {
+	        System.out.println("mensaje: cedula no puede ser menor que 1");	
+	        return null;
+	    }	        
+		UsuarioDAO dao =  new UsuarioDAO();	    
+	  	return dao.borrarUsuario(cedulau);      
+	}
 }
