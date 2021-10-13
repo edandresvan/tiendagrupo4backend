@@ -38,9 +38,9 @@ create table if not exists proveedores (
 create table if not exists productos (
   codigo_producto bigint unsigned not null,
   nombre_producto varchar(255) not null unique,
-  precio_compra double not null,
-  precio_venta double not null,
+  precio_compra double not null, 
   iva_compra double not null,
+   precio_venta double not null,
   nit_proveedor bigint unsigned not null,
   -- 
   constraint pk_producto primary key (codigo_producto),
