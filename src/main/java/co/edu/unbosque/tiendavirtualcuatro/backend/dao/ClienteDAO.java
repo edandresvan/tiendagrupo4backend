@@ -1,9 +1,11 @@
 package co.edu.unbosque.tiendavirtualcuatro.backend.dao;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import co.edu.unbosque.tiendavirtualcuatro.backend.model.Cliente;
+import co.edu.unbosque.tiendavirtualcuatro.backend.model.Usuario;
 
 
 public class ClienteDAO {
@@ -37,5 +39,96 @@ public class ClienteDAO {
 	    }
 	    return persona;
 	  }
+	  
+	  /**
+	   * Consultar Cliente por Cedula
+	   * 
+	   * @return
+	   */
+	  
+	  public Cliente consultarCliente(int cedulausr) {
+			Conexion conn =  new Conexion();
+			Cliente clienteEnc = null;
+			PreparedStatement ps = null;
+			Cliente clienteRet = null;
+			
+			String sql = "SELECT * FROM clientes WHERE cedula_cliente = ?";
+			
+			try {
+				ps =  conn.getConnection().prepareStatement(sql);
+				ps.setInt(1, cedulausr);
+				ResultSet rs =  ps.executeQuery();
+				while(rs.next()) {
+				  long cedula_cliente= rs.getLong("cedula_cliente");
+				  String nombre_cliente= rs.getString("nombre_cliente");
+		      String direccion_cliente = rs.getString("direccion_cliente");
+		      String telefono_cliente = rs.getString("telefono_cliente");
 
+					clienteEnc = new Cliente(cedula_cliente, nombre_cliente, direccion_cliente, telefono_cliente, telefono_cliente);
+				}
+				
+				if(clienteEnc.getCedula() == cedulausr) {
+					clienteRet = clienteEnc;
+				}
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return clienteRet;
+	  }	
+	  /**
+	   * Actualizar Cliente
+	   * 
+	   * @return
+	   */
+	  public Cliente actualizarCliente(Cliente cliente) 
+		 {
+		  Conexion conex= new Conexion();
+		  try { 
+		   //Statement estatuto = conex.getConnection().createStatement();
+		   String sql = "UPDATE `clientes` SET `nombre_cliente` = ?, `direccion_cliente` = ?, `email_cliente` = ?, `telefono_cliente` = ? WHERE (`cedula_cliente` = ?);"
+		   		+ "";		  
+		      PreparedStatement ps = conex.getConnection()
+	                  .prepareStatement(sql);	
+		      ps.setString(5, String.valueOf(cliente.getCedula()));
+		      ps.setString(1, cliente.getNombre());
+		      ps.setString(2, cliente.getDireccion());
+		      ps.setString(3, cliente.getEmail());
+		      ps.setString(4, cliente.getTelefono());	      
+		   //estatuto.executeUpdate("Update clientes VALUES ('"+usuario.get);
+		   //estatuto.executeUpdate(null);
+		   //estatuto.close();
+		      ps.executeUpdate();
+		      ps.close(); 
+		   conex.desconectar();
+		   
+		  } catch (SQLException e) {
+			  cliente = null;
+		            System.out.println(e.getMessage());
+		  }
+		  return cliente;
+		 }
+	  /**
+	   * Borrar Cliente
+	   * 
+	   * @return
+	   */
+	  public void borrarCliente(int cedulausr) {
+			Conexion conn =  new Conexion();
+			
+			PreparedStatement ps = null;		
+			
+			String sql = "DELETE FROM clientes WHERE cedula_cliente = ?";
+			
+			try {
+				ps =  conn.getConnection().prepareStatement(sql);
+				ps.setInt(1, cedulausr);
+				int rs = ps.executeUpdate();	
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	  }
 }
