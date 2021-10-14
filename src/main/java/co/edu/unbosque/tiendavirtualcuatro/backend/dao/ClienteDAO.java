@@ -20,11 +20,11 @@ public class ClienteDAO {
 	      PreparedStatement ps = conex.getConnection()
 	                                  .prepareStatement(sql);
 
-	      ps.setString(1, String.valueOf(persona.getCedula_cliente()));
-	      ps.setString(2, persona.getDireccion_cliente());
-	      ps.setString(3, persona.getEmail_cliente());
-	      ps.setString(4, persona.getNombre_cliente());
-	      ps.setLong(5, persona.getTelefono_cliente());
+	      ps.setString(1, String.valueOf(persona.getCedula()));
+	      ps.setString(2, persona.getDireccion());
+	      ps.setString(3, persona.getEmail());
+	      ps.setString(4, persona.getNombre());
+	      ps.setString(5, persona.getTelefono());
 
 	      ps.executeUpdate();
 
