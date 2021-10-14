@@ -86,20 +86,20 @@ public class UsuarioDAO {
 		PreparedStatement ps = null;
 		Usuario usuarioRet = null;
 		
-		String sql = "SELECT * FROM tiendavirtualgrupo4.usuarios uc WHERE uc.cedula_usuario = ?";
+		String sql = "SELECT * FROM usuarios uc WHERE uc.cedula_usuario = ?";
 		
 		try {
 			ps =  conn.getConnection().prepareStatement(sql);
 			ps.setInt(1, cedulausr);
 			ResultSet rs =  ps.executeQuery();
 			while(rs.next()) {
-				Integer cedula_usuario = rs.getInt(1);
-				String email_usuario =  rs.getString(2);
-				String nombre_usuario =  rs.getString(3);
-				String password =  rs.getString(4);
-				String usuario = rs.getString(5);
-				String rol = rs.getString(6);
-				usuarioEnc =  new Usuario(cedula_usuario, email_usuario, nombre_usuario, password, usuario, rol);
+			  long cedula_usuario= rs.getLong("cedula_usuario");
+			  String usuario= rs.getString("usuario");
+	      String nombre_usuario = rs.getString("nombre_usuario");
+	      String email_usuario = rs.getString("email_usuario");
+	      String usuario_password = rs.getString("usuario_password");
+	      String rol= rs.getString("rol");
+				usuarioEnc = new Usuario(cedula_usuario, usuario, nombre_usuario, email_usuario, usuario_password, rol);
 			}
 			
 			if(usuarioEnc.getCedula() == cedulausr) {
@@ -113,12 +113,12 @@ public class UsuarioDAO {
 		return usuarioRet;
 	}
 	
-	public Usuario actualizarUsuarios(Usuario usuario) 
+	public Usuario actualizarUsuario(Usuario usuario) 
 	 {
 	  Conexion conex= new Conexion();
 	  try { 
 	   //Statement estatuto = conex.getConnection().createStatement();
-	   String sql = "UPDATE `tiendavirtualgrupo4`.`usuarios` SET `usuario` = ?, `nombre_usuario` = ?, `email_usuario` = ?, `usuario_password` = ?, `rol` = ? WHERE (`cedula_usuario` = ?);\r\n"
+	   String sql = "UPDATE `usuarios` SET `usuario` = ?, `nombre_usuario` = ?, `email_usuario` = ?, `usuario_password` = ?, `rol` = ? WHERE (`cedula_usuario` = ?);"
 	   		+ "";		  
 	      PreparedStatement ps = conex.getConnection()
                   .prepareStatement(sql);	
@@ -141,27 +141,25 @@ public class UsuarioDAO {
 	  }
 	  return usuario;
 	 }
-	public Usuario borrarUsuario(int cedulausr) {
+	public void borrarUsuario(int cedulausr) {
 		Conexion conn =  new Conexion();
-		Usuario usuarioEnc = null;
-		PreparedStatement ps = null;
-		Usuario usuarioRet = null;
 		
-		String sql = "DELETE FROM tiendavirtualgrupo4.usuarios uc WHERE uc.cedula_usuario = ?";
+		PreparedStatement ps = null;
+		
+		
+		String sql = "DELETE FROM usuarios uc WHERE uc.cedula_usuario = ?";
 		
 		try {
 			ps =  conn.getConnection().prepareStatement(sql);
 			ps.setInt(1, cedulausr);
 			int rs = ps.executeUpdate();
 			
-			if(usuarioEnc.getCedula() == cedulausr) {
-				usuarioRet = usuarioEnc;
-			}
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return usuarioRet;
+		
 	}
 }
