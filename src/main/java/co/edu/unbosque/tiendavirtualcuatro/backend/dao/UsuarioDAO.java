@@ -27,7 +27,7 @@ public class UsuarioDAO {
     try {
       String sql = "INSERT INTO usuarios (cedula_usuario, usuario, nombre_usuario, email_usuario, usuario_password, rol) VALUES (?, ?, ?, ?, ?, ?)";
       PreparedStatement ps = conex.getConnection()
-                                  .prepareStatement(sql);
+        .prepareStatement(sql);
 
       ps.setString(1, String.valueOf(persona.getCedula()));
       ps.setString(2, persona.getUsuario());
@@ -38,7 +38,7 @@ public class UsuarioDAO {
 
       ps.executeUpdate();
 
-      ps.close(); 
+      ps.close();
       conex.desconectar();
 
     } catch (SQLException e) {
@@ -47,6 +47,7 @@ public class UsuarioDAO {
     }
     return persona;
   }
+
   /**
 	 * Consultar la lista de Usuarios
 	 * @return
@@ -196,4 +197,31 @@ public class UsuarioDAO {
 		}
 		
 	}
+
+  public Usuario getUsuarioPorAliasUsuario(String aliasUsuario)
+      throws SQLException {
+    Conexion conn = new Conexion();
+    Usuario usuarioEncontrado = null;
+    PreparedStatement ps = null;
+
+    String sql = "SELECT * FROM usuarios WHERE usuario = ?";
+
+    ps = conn.getConnection()
+      .prepareStatement(sql);
+    ps.setString(1, aliasUsuario);
+    ResultSet rs = ps.executeQuery();
+    while (rs.next()) {
+      long cedula_usuario = rs.getLong("cedula_usuario");
+      String usuario = rs.getString("usuario");
+      String nombre_usuario = rs.getString("nombre_usuario");
+      String email_usuario = rs.getString("email_usuario");
+      String usuario_password = rs.getString("usuario_password");
+      String rol = rs.getString("rol");
+      usuarioEncontrado = new Usuario(cedula_usuario, usuario, nombre_usuario,
+        email_usuario, usuario_password, rol);
+    }
+
+    return usuarioEncontrado;
+  }
+
 }
