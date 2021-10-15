@@ -33,7 +33,7 @@ public class VentasControlador {
 	      System.out.println("mensaje: cedula no puede ser menor que 1");
 	      return null;
 	    }
-	    UsuarioDAO dao = new UsuarioDAO();
+	    UsuarioDAO dao = new UsuarioDAO(); 
 	    return dao.consultarUsuario(cedulau);
 	  }	
 	

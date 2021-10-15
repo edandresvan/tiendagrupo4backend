@@ -56,7 +56,7 @@ public class UsuarioControlador {
     return dao.consultarUsuario(cedulau);
   }
   
-	@PostMapping("/auth")
+	@PostMapping("/auth") 
 	@ResponseBody
 	public Usuario auth(@RequestParam String nombre, @RequestParam String contrasena) {
 		UsuarioDAO dao =  new UsuarioDAO();

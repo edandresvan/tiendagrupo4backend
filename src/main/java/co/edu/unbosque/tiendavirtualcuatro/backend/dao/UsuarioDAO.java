@@ -116,7 +116,7 @@ public class UsuarioDAO {
 	public Usuario loginUsuario(String nombreU, String contrasenaU) {
 		Conexion conn =  new Conexion();
 		Usuario usuarioEnc = null;
-		PreparedStatement ps = null;
+		PreparedStatement ps = null; 
 		Usuario usuarioRet = null;
 		
 		String sql = "SELECT * FROM usuarios uc WHERE uc.cedula_usuario = ?";
@@ -144,7 +144,7 @@ public class UsuarioDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return usuarioRet;
+		return usuarioRet; 
 	}	
 	
 	public Usuario actualizarUsuario(Usuario usuario) 

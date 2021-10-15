@@ -10,7 +10,7 @@ public class Ventas {
 	  private double valor_venta;
 	  
 	public Ventas() {
-		super();
+		super(); 
 	}
 
 	public Ventas(long codigo_venta, long cedula_cliente, long cedula_usuario, double total_venta, double iva_venta,
