@@ -93,8 +93,8 @@ public class ClienteDAO {
 				  String nombre_cliente= rs.getString("nombre_cliente");
 		      String direccion_cliente = rs.getString("direccion_cliente");
 		      String telefono_cliente = rs.getString("telefono_cliente");
-
-					clienteEnc = new Cliente(cedula_cliente, nombre_cliente, direccion_cliente, telefono_cliente, telefono_cliente);
+		      String email_cliente = rs.getString("email_cliente");
+					clienteEnc = new Cliente(cedula_cliente, nombre_cliente, direccion_cliente, email_cliente, telefono_cliente);
 				}
 				
 				if(clienteEnc.getCedula() == cedulausr) {

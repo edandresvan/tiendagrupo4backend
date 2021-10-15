@@ -12,8 +12,8 @@ public class Cliente {
     super();
   }
 
-  public Cliente(long cedula, String direccion, String email,
-      String nombre, String telefono) {
+  public Cliente(long cedula, String nombre, String direccion, String email,
+      String telefono) {
     super();
     this.cedula = cedula;
     this.direccion = direccion;
