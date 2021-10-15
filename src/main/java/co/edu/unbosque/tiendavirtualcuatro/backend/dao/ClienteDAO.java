@@ -3,6 +3,7 @@ package co.edu.unbosque.tiendavirtualcuatro.backend.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import co.edu.unbosque.tiendavirtualcuatro.backend.model.Cliente;
 import co.edu.unbosque.tiendavirtualcuatro.backend.model.Usuario;
@@ -45,6 +46,35 @@ public class ClienteDAO {
 	   * 
 	   * @return
 	   */
+	  
+		public ArrayList<Cliente> listaDeClientes() {
+			  ArrayList<Cliente> misClientes = new ArrayList<Cliente>();
+			  Conexion conex= new Conexion();
+			    
+			  try {
+			   PreparedStatement consulta = conex.getConnection().prepareStatement("SELECT * FROM clientes");
+			   ResultSet res = consulta.executeQuery();
+			   while(res.next()){
+			    
+			    int cedula_cliente = Integer.parseInt(res.getString("cedula_cliente"));
+			    String nombre= res.getString("nombre_cliente");
+			    String direccion = res.getString("direccion_cliente");
+			    String email = res.getString("email_cliente");
+			    String telefono = res.getString("telefono_cliente");
+			    Cliente persona= new Cliente(cedula_cliente, nombre, direccion, email, telefono);
+			    misClientes.add(persona);
+			          }
+			          res.close();
+			          consulta.close();
+			          conex.desconectar();
+			   
+			  } catch (Exception e) {
+			   //JOptionPane.showMessageDialog(null, "no se pudo consultar la Persona\n"+e);
+				  System.out.println("No se pudo consultar la persona\n"+e);	
+			  }
+			  return misClientes; 
+			 }	  
+	  
 	  
 	  public Cliente consultarCliente(int cedulausr) {
 			Conexion conn =  new Conexion();

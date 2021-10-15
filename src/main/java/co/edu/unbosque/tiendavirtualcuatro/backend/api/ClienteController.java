@@ -1,5 +1,7 @@
 package co.edu.unbosque.tiendavirtualcuatro.backend.api;
 
+import java.util.ArrayList;
+
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +31,12 @@ public class ClienteController {
 	    ClienteDAO dao= new ClienteDAO(); 
 	    return dao.registrarCliente(persona);
 	  }
+	
+	  @GetMapping("/listaDeClientes")
+	  public ArrayList<Cliente> listaDeClientes() {
+	    ClienteDAO objDAO = new ClienteDAO();
+	    return objDAO.listaDeClientes();
+	  }	
 	 
 	@GetMapping("/buscar")
 	  @ResponseBody
