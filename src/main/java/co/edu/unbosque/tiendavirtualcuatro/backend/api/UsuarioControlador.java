@@ -55,6 +55,13 @@ public class UsuarioControlador {
     UsuarioDAO dao = new UsuarioDAO();
     return dao.consultarUsuario(cedulau);
   }
+  
+	@PostMapping("/auth")
+	@ResponseBody
+	public Usuario auth(@RequestParam String nombre, @RequestParam String contrasena) {
+		UsuarioDAO dao =  new UsuarioDAO();
+		return dao.loginUsuario(nombre, contrasena);
+	}
 
   @PutMapping("/actualizarUsuario")
   public Usuario actualizarUsuario(@RequestBody Usuario usuario) {

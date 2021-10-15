@@ -113,6 +113,40 @@ public class UsuarioDAO {
 		return usuarioRet;
 	}
 	
+	public Usuario loginUsuario(String nombreU, String contrasenaU) {
+		Conexion conn =  new Conexion();
+		Usuario usuarioEnc = null;
+		PreparedStatement ps = null;
+		Usuario usuarioRet = null;
+		
+		String sql = "SELECT * FROM usuarios uc WHERE uc.cedula_usuario = ?";
+		
+		try {
+			ps =  conn.getConnection().prepareStatement(sql);
+			ps.setString(1, nombreU);
+			ps.setString(2, contrasenaU);
+			ResultSet rs =  ps.executeQuery();
+			while(rs.next()) {
+			  long cedula_usuario= rs.getLong("cedula_usuario");
+			  String usuario= rs.getString("usuario");
+	      String nombre_usuario = rs.getString("nombre_usuario");
+	      String email_usuario = rs.getString("email_usuario");
+	      String usuario_password = rs.getString("usuario_password");
+	      String rol= rs.getString("rol");
+				usuarioEnc = new Usuario(cedula_usuario, usuario, nombre_usuario, email_usuario, usuario_password, rol);
+			}
+			
+			if(usuarioEnc.getPassword().equals(contrasenaU)) {
+				usuarioRet = usuarioEnc;
+			}
+
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return usuarioRet;
+	}	
+	
 	public Usuario actualizarUsuario(Usuario usuario) 
 	 {
 	  Conexion conex= new Conexion();
