@@ -9,30 +9,27 @@ import java.sql.SQLException;
 
 /**
  * Gestiona una conexión con la base de datos.
- * @author 
- *
- */
-/**
- * @author Administrator
+ * 
+ * @author
  *
  */
 public class Conexion {
-  static String bd = "tiendavirtualgrupo4";
+  // static String bd = "tiendavirtualgrupo4";
 
   /**
    * Nombre de usuario para iniciar la conexión con la base de datos.
    */
-  static String login = "root";
+  public static String login;
 
   /**
    * Contraseña de usuario para iniciar la conexión con la base datos.
    */
-  static String password = "rootroot";
+  public static String password;
 
   /**
    * Dirección URL para conectarse la base de datos.
    */
-  static String url = "jdbc:mysql://localhost/" + bd;
+  public static String url;
 
   /**
    * Objeto que mantiene la conexión con la base de datos.
@@ -51,7 +48,7 @@ public class Conexion {
       connection = DriverManager.getConnection(url, login, password);
 
       if (connection != null) {
-        System.out.println("Conexión a base de datos " + bd + " OK\n");
+        System.out.println("Conexión a base de datos " + url + " OK\n");
       }
     } catch (SQLException e) {
       System.out.println(e);
@@ -63,7 +60,8 @@ public class Conexion {
   }
 
   /**
-   * Obtiene la conexión con la base de datos.   * 
+   * Obtiene la conexión con la base de datos. *
+   * 
    * @return La conexión con la base de datos.
    */
   public Connection getConnection() {
