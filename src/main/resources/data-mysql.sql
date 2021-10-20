@@ -32,7 +32,9 @@ insert ignore into productos
 insert ignore into ventas 
   (codigo_venta, cedula_cliente, cedula_usuario, total_venta, iva_venta, valor_venta)
   values 
-  (501, 201, 102, 43500, 4926, 48426);
+  (501, 201, 102, 43500, 4926, 48426),
+  (502, 202, 102, 46500, 3214, 49714),
+  (503, 201, 102, 44700, 6218, 50918);
 
 insert ignore into detalle_ventas 
   (codigo_detalle_venta, codigo_venta, codigo_producto, cantidad_producto, 
@@ -40,7 +42,12 @@ insert ignore into detalle_ventas
   values 
   (601, 501, 451, 3, 20400, 3876, 24276),
   (602, 501, 452, 5, 17500, 1050, 18550),
-  (603, 501, 453, 2, 5600, 0, 5600);
+  (603, 501, 453, 2, 5600, 0, 5600),
+  (604, 502, 451, 2, 13600, 2584, 16184),
+  (605, 502, 452, 3, 10500, 630, 11130),
+  (606, 502, 453, 8, 22400, 0, 22400),
+  (607, 503, 451, 4, 27200, 5168, 32368),
+  (608, 503, 452, 5, 17500, 1050, 18550);
 
   
 commit;
