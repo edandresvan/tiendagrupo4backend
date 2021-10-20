@@ -48,23 +48,39 @@ public class ProductoControlador {
     this.productoDAO = productoDAO;
   }
   
+  /**
+   * Obtiene los productos con o sin el código especificado.
+   * @param codigo Opcional. Cód del producto que se desea buscar.
+   * @return Lista de productos con o sin el código especificado.
+   */
   @GetMapping
   public ResponseEntity<List<Producto>> getProveedores(@RequestParam Optional<String> codigo) {
+    // Primero, determinar si se especificó el código
     if (codigo.isPresent()) {
+      // Buscar los productos que tenga ese código
       List<Producto> resultados = this.productoDAO.findAllByCodigo(Long.parseLong(codigo.get()));
+      // Si hubo resultados, devolver OK
       if (resultados.isEmpty()) {
         return new ResponseEntity<>(resultados, HttpStatus.NOT_FOUND);
       } else {
         return new ResponseEntity<>(resultados, HttpStatus.OK);
       }
     } else {
+      // No se especificó el código, devolver todos los productos
       return ResponseEntity.ok(this.productoDAO.findAll());
     }
   }
   
+  /**
+   * Obtiene los productos con el código especificado.
+   * @param codigo código de l producto que se desea buscar
+   * @return Lista de los productos con el código especificado
+   */
   @GetMapping("/{codigo}")
   public ResponseEntity<List<Producto>> getProveedoresPorNit(@PathVariable String codigo) {
+    // Buscar los productos que tengan ese código
     List<Producto> resultados = this.productoDAO.findAllByCodigo(Long.parseLong(codigo));
+    // Si hubo resultados, devolver OK
     if (resultados.isEmpty()) {
       return new ResponseEntity<>(resultados, HttpStatus.NOT_FOUND);
     } else {
@@ -72,15 +88,30 @@ public class ProductoControlador {
     }
   }
 
+  /**
+   * Guarda el nuevo producto especificado.
+   * @param producto Nuevo producto que se desea guardar.
+   * @return Lista con el objeto producto que se guardó.
+   */
   @PostMapping
   public ResponseEntity<List<Producto>> postProducto(@Valid @RequestBody Producto producto) {
+    // Guardar el producto
     Producto productoCreado = this.productoDAO.save(producto);
+    // Inicializar una lista con el producto recién creado
     List<Producto> resultados = new ArrayList<>(List.of(productoCreado));
+    // Devolver CREATED
     return new ResponseEntity<>(resultados, HttpStatus.CREATED);
   }
   
+  /**
+   * Elimina todos los productos de la base de datos.
+   */
   @DeleteMapping
   public void deleteProductos() {
-    this.productoDAO.deleteAll();
+    
+    //this.productoDAO.deleteAll();
+    // Comentar la siguiente línea si se quiere eliminar también los productos 
+    // de prueba para ventas
+    this.productoDAO.borrarTodosPreservarPruebas();
   }
 }

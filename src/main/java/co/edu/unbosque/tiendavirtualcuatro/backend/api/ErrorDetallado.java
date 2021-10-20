@@ -5,6 +5,13 @@ import java.util.List;
 
 import org.springframework.http.HttpStatus;
 
+/**
+ * Representa un error con detalles explicativos que puede enviarse a la 
+ * aplicación como respuesta cuando ocurre un error o exepción.
+ * @author 
+ *
+ * @param <T> Tipo (clase) del modelo que reporta como parte del error.
+ */
 public class ErrorDetallado <T> {
   
   private T modelo;  

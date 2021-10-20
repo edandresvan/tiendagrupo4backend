@@ -24,6 +24,11 @@ import co.edu.unbosque.tiendavirtualcuatro.backend.dao.ProveedorDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.rest.core.annotation.RestResource;
 
+/**
+ * Representa un producto que la tienda ofrece a sus clientes.
+ * 
+ * @author 
+ */
 @Entity
 @Table(name = "productos")
 public class Producto {

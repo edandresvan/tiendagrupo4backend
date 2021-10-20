@@ -40,7 +40,7 @@ create table if not exists productos (
   nombre_producto varchar(255) not null unique,
   precio_compra double not null, 
   iva_compra double not null,
-   precio_venta double not null,
+  precio_venta double not null,
   nit_proveedor bigint unsigned not null,
   -- 
   constraint pk_producto primary key (codigo_producto),
@@ -76,7 +76,7 @@ create table if not exists detalle_ventas (
   constraint uq_detalle_venta_producto 
     unique (codigo_detalle_venta, codigo_venta, codigo_producto),
   constraint fk_detalle_ventas_codigo_venta
-    foreign key (codigo_detalle_venta)
+    foreign key (codigo_venta)
     references ventas(codigo_venta),
   constraint fk_detalle_ventas_codigo_producto 
     foreign key (codigo_producto) references productos(codigo_producto)
