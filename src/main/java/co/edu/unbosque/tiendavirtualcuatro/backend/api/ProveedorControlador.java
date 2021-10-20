@@ -108,8 +108,7 @@ public class ProveedorControlador {
     Proveedor proveedorCreado = this.proveedorServicio
       .agregarProveedor(proveedor);
     // Inicializar una lista con el proveedor recién creado
-    List<Proveedor> resultados = new ArrayList<>();
-    resultados.add(proveedorCreado);
+    List<Proveedor> resultados = new ArrayList<>(List.of(proveedorCreado));
     // Devolver CREATED
     return new ResponseEntity<>(resultados, HttpStatus.CREATED);
   }

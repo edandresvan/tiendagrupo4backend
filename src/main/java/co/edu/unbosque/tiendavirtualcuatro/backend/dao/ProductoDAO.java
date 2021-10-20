@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
+import co.edu.unbosque.tiendavirtualcuatro.backend.dto.TotalVentaPorClienteDTO;
 import co.edu.unbosque.tiendavirtualcuatro.backend.model.Producto;
 
 /**
@@ -25,6 +26,8 @@ public interface ProductoDAO extends JpaRepository<Producto, Long> {
    * @return Lista de todos los productos que tengan el código especificado.
    */
   List<Producto> findAllByCodigo(long codigo);
+  
+  
   
   @Modifying
   @Query("delete from Producto where codigo_producto not between 450 and 499")
