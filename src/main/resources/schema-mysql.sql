@@ -64,7 +64,7 @@ create table if not exists ventas (
 );
 
 create table if not exists detalle_ventas (
-  codigo_detalle_venta bigint unsigned not null,
+  codigo_detalle_venta bigint unsigned not null auto_increment,
   codigo_venta bigint unsigned not null,
   codigo_producto bigint unsigned not null,
   cantidad_producto int unsigned not null,
