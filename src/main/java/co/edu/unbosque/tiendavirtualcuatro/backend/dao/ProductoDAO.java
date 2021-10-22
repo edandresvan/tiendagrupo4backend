@@ -5,6 +5,8 @@ package co.edu.unbosque.tiendavirtualcuatro.backend.dao;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -31,6 +33,7 @@ public interface ProductoDAO extends JpaRepository<Producto, Long> {
   
   @Modifying
   @Query("delete from Producto where codigo_producto not between 450 and 499")
+  @Transactional
   void borrarTodosPreservarPruebas();
   
 }

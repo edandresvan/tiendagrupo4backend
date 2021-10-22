@@ -50,5 +50,6 @@ insert ignore into detalle_ventas
   (608, 503, 452, 5, 17500, 1050, 18550);
 
   
+  
 commit;
     
