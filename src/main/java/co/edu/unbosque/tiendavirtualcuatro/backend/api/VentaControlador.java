@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +40,16 @@ public class VentaControlador {
   @GetMapping
   public ResponseEntity<List<Venta>> getVentas() {
     return ResponseEntity.ok(this.ventaServicio.getVentas());
+  }
+  
+  @GetMapping("/{codigo}")
+  public ResponseEntity<List<Venta>> getVenta(@PathVariable String codigo) {
+    List<Venta> resultados = this.ventaServicio.getVentasPorCodigo(Long.parseLong(codigo));
+    if (resultados.isEmpty()) {
+      return new ResponseEntity<>(resultados, HttpStatus.NOT_FOUND);
+    } else {
+      return new ResponseEntity<>(resultados, HttpStatus.OK);
+    }
   }
   
   @PostMapping

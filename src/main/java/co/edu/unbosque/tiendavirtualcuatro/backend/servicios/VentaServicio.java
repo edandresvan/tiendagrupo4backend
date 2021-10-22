@@ -43,6 +43,10 @@ public class VentaServicio {
 	public List<Venta> getVentas() {
 		return this.ventaDAO.findAll();
 	}
+	
+	public List<Venta> getVentasPorCodigo(long codigo) {
+	  return this.ventaDAO.findAllByCodigo(codigo);
+	}
 
 	public Venta guardarVenta(Venta venta) {
 		int sumaCantidad = 0;
